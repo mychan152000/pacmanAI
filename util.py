@@ -112,7 +112,7 @@ class Stack:
     def __init__(self):
         self.list = []
 
-    def push(self,item):
+    def push(self, item):
         "Push 'item' onto the stack"
         self.list.append(item)
 
@@ -198,7 +198,15 @@ class PriorityQueueWithFunction(PriorityQueue):
     Class has one attribute as a function.
     The function is called to compute the priority of item before being pushed in
     '''
-    # TODO 04
+
+    def __init__(self, priorityFunction):
+        "priorityFunction (item) -> priority"
+        self.priorityFunction = priorityFunction      # store the priority function
+        PriorityQueue.__init__(self)        # super-class initializer
+
+    def push(self, item):
+        "Adds an item to the queue with priority from the priority function"
+        PriorityQueue.push(self, item, self.priorityFunction(item))
     pass
 
 
