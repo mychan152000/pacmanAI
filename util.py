@@ -112,7 +112,7 @@ class Stack:
     def __init__(self):
         self.list = []
 
-    def push(self, item):
+    def push(self,item):
         "Push 'item' onto the stack"
         self.list.append(item)
 
@@ -149,7 +149,7 @@ class Queue:
 
 class PriorityQueue:
     # TODO 03
-     def __init__(self):
+     def  __init__(self):
         self.pq = []
         pass
 
@@ -198,14 +198,7 @@ class PriorityQueueWithFunction(PriorityQueue):
     Class has one attribute as a function.
     The function is called to compute the priority of item before being pushed in
     '''
-    def __init__(self, priorityFunction):
-        "priorityFunction (item) -> priority"
-        self.priorityFunction = priorityFunction      # store the priority function
-        PriorityQueue.__init__(self)        # super-class initializer
-
-    def push(self, item):
-        "Adds an item to the queue with priority from the priority function"
-        PriorityQueue.push(self, item, self.priorityFunction(item))
+    # TODO 04
     pass
 
 
@@ -673,9 +666,9 @@ def mutePrint():
     _MUTED = True
 
     _ORIGINAL_STDOUT = sys.stdout
-    # _ORIGINAL_STDERR = sys.stderr
+    #_ORIGINAL_STDERR = sys.stderr
     sys.stdout = WritableNull()
-    # sys.stderr = WritableNull()
+    #sys.stderr = WritableNull()
 
 
 def unmutePrint():
@@ -685,4 +678,4 @@ def unmutePrint():
     _MUTED = False
 
     sys.stdout = _ORIGINAL_STDOUT
-    # sys.stderr = _ORIGINAL_STDERR
+    #sys.stderr = _ORIGINAL_STDERR
