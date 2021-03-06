@@ -2,7 +2,7 @@
 In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
-
+from util import Stack
 import util
 import sys
 from time import sleep
@@ -59,10 +59,26 @@ class SearchProblem:
 
 
 def depthFirstSearch(problem):
-    '''
-    return a path to the goal
-    '''
     # TODO 05
+    qu = Stack()
+    qu.push(((problem.getStartState()), []))
+
+    # store the visited state
+    traveled = []
+
+    while qu.isEmpty() is False:
+        (stat, path) = qu.pop()
+        if(problem.isGoalState(stat)):
+            break
+        s = problem.getSuccessors(stat)
+        for i in s:
+            if i[0] not in traveled:
+                qu.push((i[0], path + [i[1]]))
+                traveled.append(i[0])
+
+    return path
+
+    util.raiseNotDefined()
 
 
 def breadthFirstSearch(problem):
@@ -86,10 +102,12 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
+
 # TODO 08 + 09
 '''
 students propose at least two heuristic functions for A*
 '''
+
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     '''

@@ -149,14 +149,15 @@ class Queue:
 
 class PriorityQueue:
     # TODO 03
-     def __init__(self):
+    def __init__(self):
         self.pq = []
         pass
 
     def get(self):
         return self.pq
+
     def push(self, item, priority):
-        heapq.heappush(self.pq,(priority,item))
+        heapq.heappush(self.pq, (priority, item))
         heapq.heapify(self.pq)
         pass
 
@@ -174,21 +175,20 @@ class PriorityQueue:
         return False
         pass
 
-
     def update(self, item, priority):
         # If item already in priority queue with higher priority, update its priority and rebuild the heap.
         # If item already in priority queue with equal or lower priority, do nothing.
         # If item not in priority queue, do the same thing as self.push.
         exist = False
-        for p,i in self.pq:
+        for p, i in self.pq:
             if item == i:
                 exist = True
                 if p > priority:
-                    self.pq.remove((p,i))
-                    self.push(item,priority)
+                    self.pq.remove((p, i))
+                    self.push(item, priority)
                     break
         if exist == False:
-            self.push(item,priority)
+            self.push(item, priority)
         pass
     pass
 
@@ -198,6 +198,7 @@ class PriorityQueueWithFunction(PriorityQueue):
     Class has one attribute as a function.
     The function is called to compute the priority of item before being pushed in
     '''
+
     def __init__(self, priorityFunction):
         "priorityFunction (item) -> priority"
         self.priorityFunction = priorityFunction      # store the priority function
