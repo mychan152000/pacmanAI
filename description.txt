@@ -1,0 +1,15 @@
+##DFS
+
+Khởi tạo một Stack tên qu
+xác định một điểm bắt đầu của tham số vấn đề được đưa vào và truyền vào trong stack qu
+Khởi tạo một mảng rỗng những node đã đi qua tên là Traveled
+Vòng lặp while nếu stack không phải rỗng
+    sẽ bỏ node hiện tại và pathcost của node hiện tại vào stack qu
+    nếu tìm được goal của vấn đề thì vòng lặp sẽ break và ngưng tại đó
+
+    nếu vẫn chưa tìm được goal thì sẽ tiếp tục tìm phần tử ngay sau node hiện tại bằng cách gọi hàm getSuccessors và truyển tham số là node hiện tại.
+    Đặt ra một vòng lặp for với phần tử ngay sau node vừa tìm, vì hàm getSuccessors sẽ trả về một list có chứa phần tử tiếp theo, action, và stepcost (successor,action,stepCost)
+    nên vòng lặp for này sẽ lấy phần tử đứng đầu trong list là [0] là chính phần tử đó để so với mảng Traveled (chứa những phần tử đã đi qua) kiểm tra xem successor đã được đi qua chưa,
+    nếu chưa sẽ append vào mảng và đồng thời đẩy vào stack qu đã tạo lúc đầu.
+
+    
