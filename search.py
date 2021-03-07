@@ -2,7 +2,7 @@
 In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
-from util import Stack
+from util import Stack, Queue
 import util
 import sys
 from time import sleep
@@ -71,21 +71,29 @@ def depthFirstSearch(problem):
         if(problem.isGoalState(stat)):
             break
         s = problem.getSuccessors(stat)
-        for i in s:
-            if i[0] not in traveled:
-                qu.push((i[0], path + [i[1]]))
-                traveled.append(i[0])
+        for k in s:
+            if k[0] not in traveled:
+                qu.push((k[0], path + [k[1]]))
+                traveled.append(k[0])
 
     return path
 
-    util.raiseNotDefined()
-
 
 def breadthFirstSearch(problem):
-    '''
-    return a path to the goal
-    '''
     # TODO 06
+    qu = Queue()
+    qu.push(((problem.getStartState()), []))
+    traveled = []
+    while qu.isEmpty() is False:
+        (stat, path) = qu.pop()
+        if(problem.isGoalState(stat)):
+            break
+        s = problem.getSuccessors(stat)
+        for k in s:
+            if k[0] not in traveled:
+                qu.push((k[0], path + [k[1]]))
+                traveled.append(k[0])
+    return path
 
 
 def uniformCostSearch(problem):
