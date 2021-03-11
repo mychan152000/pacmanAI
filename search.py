@@ -100,7 +100,24 @@ def uniformCostSearch(problem):
     '''
     return a path to the goal
     '''
-    # TODO 07
+    fringe = util.PriorityQueue()
+    fringe.push((problem.getStartState(), [], 0), 0)
+    expanded = []
+
+    while not fringe.isEmpty():
+        node, actions, curCost = fringe.pop()
+
+        if(not node in expanded):
+            expanded.append(node)
+
+            if problem.isGoalState(node):
+                return actions
+
+            for child, direction, cost in problem.getSuccessors(node):
+                fringe.push(
+                    (child, actions+[direction], curCost + cost), curCost + cost)
+
+    return []
 
 
 def nullHeuristic(state, problem=None):
@@ -117,11 +134,45 @@ students propose at least two heuristic functions for A*
 '''
 
 
+def manhattanHeuristic(position, problem, info={}):
+    "The Manhattan distance heuristic for a PositionSearchProblem"
+    xy1 = position
+    xy2 = problem.goal
+    return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
+
+
+def euclideanHeuristic(position, problem, info={}):
+    "The Euclidean distance heuristic for a PositionSearchProblem"
+    xy1 = position
+    xy2 = problem.goal
+    return ((xy1[0] - xy2[0]) ** 2 + (xy1[1] - xy2[1]) ** 2) ** 0.5
+
+
 def aStarSearch(problem, heuristic=nullHeuristic):
     '''
     return a path to the goal
     '''
     # TODO 10
+    fringe = util.PriorityQueue()
+    fringe.push((problem.getStartState(), [], 0),
+                heuristic(problem.getStartState(), problem))
+    expanded = []
+
+    while not fringe.isEmpty():
+        node, actions, curCost = fringe.pop()
+
+        if(not node in expanded):
+            expanded.append(node)
+
+            if problem.isGoalState(node):
+                return actions
+
+            for child, direction, cost in problem.getSuccessors(node):
+                g = curCost + cost
+                fringe.push(
+                    (child, actions+[direction], curCost + cost), g + heuristic(child, problem))
+
+    return []
 
 
 # Abbreviations
