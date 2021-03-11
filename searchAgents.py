@@ -151,3 +151,71 @@ class AStarFoodSearchAgent(SearchAgent):
     def __init__(self):
         self.searchFunction = lambda prob: search.aStarSearch(prob, foodHeuristic)
         self.searchType = FoodSearchProblem
+
+
+def foodHeuristic(state, problem):
+    """
+    Your heuristic for the FoodSearchProblem goes here.
+    This heuristic must be consistent to ensure correctness.  First, try to come
+    up with an admissible heuristic; almost all admissible heuristics will be
+    consistent as well.
+    If using A* ever finds a solution that is worse uniform cost search finds,
+    your heuristic is *not* consistent, and probably not admissible!  On the
+    other hand, inadmissible or inconsistent heuristics may find optimal
+    solutions, so be careful.
+    The state is a tuple ( pacmanPosition, foodGrid ) where foodGrid is a Grid
+    (see game.py) of either True or False. You can call foodGrid.asList() to get
+    a list of food coordinates instead.
+    If you want access to info like walls, capsules, etc., you can query the
+    problem.  For example, problem.walls gives you a Grid of where the walls
+    are.
+    If you want to *store* information to be reused in other calls to the
+    heuristic, there is a dictionary called problem.heuristicInfo that you can
+    use. For example, if you only want to count the walls once and store that
+    value, try: problem.heuristicInfo['wallCount'] = problem.walls.count()
+    Subsequent calls to this heuristic can access
+    problem.heuristicInfo['wallCount']
+    """
+    position, foodGrid = state
+    "*** YOUR CODE HERE ***"
+    if(problem.isGoalState(state)):
+        return 0
+    verticesINMST = set()
+    verticesNOTMST = set()
+
+    for i, item in enumerate(foodGrid):
+        for j, foodItem in enumerate(item):
+            if(foodItem):
+                verticesNOTMST.add((i, j))
+    closest_dist = min([util.manhattanDistance(position, item)
+                        for item in verticesNOTMST])
+
+    # verticesNOTMST.add(position)
+    edges = util.PriorityQueue()
+
+    cost = 0
+    # edges.push((verticesNOTMST[i], verticesNOTMST[j]), util.manhattanDistance(verticesNOTMST[i], verticesNOTMST[j]))
+    poppedEdge = None
+    inV, outV = 0, 0
+    spanCost = closest_dist
+    spanEdges = []
+
+    currentVert = verticesNOTMST.pop()
+    verticesINMST.add(currentVert)
+
+    while len(verticesNOTMST) != 0:
+        for vert in verticesNOTMST:
+            cost = util.manhattanDistance(currentVert, vert)
+            edges.push(((currentVert, vert), cost), cost)
+        while(True):
+            poppedEdge, cost = edges.pop()
+            if(poppedEdge[1] in verticesNOTMST):
+                inV, outV = poppedEdge
+                break
+        spanCost += cost
+        verticesNOTMST.remove(outV)
+        verticesINMST.add(outV)
+        spanEdges.append((poppedEdge, cost))
+        currentVert = outV
+    # print "pos:", position, " h:", spanCost
+    return spanCost
