@@ -21,3 +21,11 @@ Vòng lặp while nếu stack không phải rỗng
  Tạo 1 list rỗng để lưu các node đã đi qua
  Nếu PQ vẫn còn data (chưa đến được đích) thì PQ sẽ liên tục lấy ra phần tử đầu của mình để kiểm tra các node có thể đi tới và sau đó cập nhật lại giá trị quảng đường và liên tục tìm cho đến khi trong PQ không còn data
  Nếu không tìm thấy Path, UCS sẽ trả về mảng rỗng
+
+##A* null heuristic
+Khởi tạo một PQ tên là fringe để lưu các giá trị và độ ưu tiên của chúng trong hàng đợi
+tạo 1 list expanded dùng để lưu các node đi đã đi qua
+Nếu vòng trong hàng đợi PQ vẫn còn chứa các node thì sẽ lần lượt lấy các node đó ra và các node tiếp theo có thể di chuyển tới được
+    Nếu tìm thấy goal thì sẽ dừng vòng lặp và đẩy đường đi của các node ra bên ngoài. Nếu không, fringe sẽ tiếp tục lưu đường đi của các node có thể đi tiếp và tiếp tục tìm đường
+    Trong trường hợp không tìm thấy được đường đi, A* null heuristic sẽ trả về mảng rỗng
+
