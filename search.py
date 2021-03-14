@@ -100,12 +100,12 @@ def uniformCostSearch(problem):
     '''
     return a path to the goal
     '''
-    fringe = util.PriorityQueue()
-    fringe.push((problem.getStartState(), [], 0), 0)
+    PQ = util.PriorityQueue()
+    PQ.push((problem.getStartState(), [], 0), 0)
     expanded = []
 
-    while not fringe.isEmpty():
-        node, actions, curCost = fringe.pop()
+    while not PQ.isEmpty():
+        node, actions, curCost = PQ.pop()
 
         if(not node in expanded):
             expanded.append(node)
@@ -114,7 +114,7 @@ def uniformCostSearch(problem):
                 return actions
 
             for child, direction, cost in problem.getSuccessors(node):
-                fringe.push(
+                PQ.push(
                     (child, actions+[direction], curCost + cost), curCost + cost)
 
     return []
