@@ -12,4 +12,12 @@ Vòng lặp while nếu stack không phải rỗng
     nên vòng lặp for này sẽ lấy phần tử đứng đầu trong list là [0] là chính phần tử đó để so với mảng Traveled (chứa những phần tử đã đi qua) kiểm tra xem successor đã được đi qua chưa,
     nếu chưa sẽ append vào mảng và đồng thời đẩy vào stack qu đã tạo lúc đầu.
 
-    
+
+
+ ##UCS
+
+ Khởi tạo 1 Priority Queue tên là PQ
+ Truyền vào trong Queue vị trí hiện tại của pacman, các node có thể đi được, độ dài đường đi sẽ đi
+ Tạo 1 list rỗng để lưu các node đã đi qua
+ Nếu PQ vẫn còn data (chưa đến được đích) thì PQ sẽ liên tục lấy ra phần tử đầu của mình để kiểm tra các node có thể đi tới và sau đó cập nhật lại giá trị quảng đường và liên tục tìm cho đến khi trong PQ không còn data
+ Nếu không tìm thấy Path, UCS sẽ trả về mảng rỗng
